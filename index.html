@@ -29,47 +29,129 @@
             <div class="row col-md-12 mt-2" id="listBarang">
                     <!-- Kerjakan dibawah ini! -->
 
-                    <div class="card mr-4" style="width: 18rem;">
-                        <img src="genius.jpeg" class="card-img-top" alt="">
+                    <div class="card mr-4 mt-3" style="width: 18rem;">
+                        <img src="genius.jpeg" class="card-img-top mt-4" width="200" height="200">
                         <div class="card-body">
                           <h5 class="card-title">Mouse Genius</h5>
                           <p class="card-text">Mouse genius biar bikin pinter Dan Semangat Ngoding nya</p>
                           <p class="card-text">50.000.00</p>
-                          <a href="#" class="btn btn-primary">Add To Cart</a>
+                          <a href="#" class="btn btn-primary" id="cartButton1">Add To Cart</a>
                         </div>
 
 
-                      </div> <div class="card mr-4" style="width: 18rem;">
-                        <img src="jerry.jpg" class="rounded" alt="Cinque Terre" width="250" height="175"> 
+                      </div> <div class="card mr-4 ml-5 mt-3" style="width: 18rem;">
+                        <img src="jerry.jpg" class="card-img-top mt-4  width="280" height="148"> 
                         <div class="card-body">
                           <h5 class="card-title">Mouse jerry</h5>
                           <p class="card-text">Mouse YangDi sukai jerry Dan Tom Di film nya</p>
                           <p class="card-text">30.000.00</p>
-                          <a href="#" class="btn btn-primary">Add To Cart</a>
+                          <a href="#" class="btn btn-primary" id="cartButton2">Add To Cart</a>
                         </div>
 
 
-                      </div> <div class="card mr-4" style="width: 18rem;">
-                        <img src="logitek.jpg" class="rounded" alt="Cinque Terre" width="230" height="175"> 
+                      </div> <div class="card mr-4 ml-5 mt-3" style="width: 18rem;">
+                        <img src="logitek.jpg" class="card-img-top mt-4" alt="Cinque Terre" width="304" height="175"> 
                         <div class="card-body">
                           <h5 class="card-title">Keyboard logitek</h5>
                           <p class="card-text">Keyboard Yang Mantap Untuk Kantoran</p>
                           <p class="card-text">60.000.00</p>
-                          <a href="#" class="btn btn-primary">Add To Cart</a>
+                          <a href="#" class="btn btn-primary" id="cartButton3">Add To Cart</a>
                         </div>
 
                         
-                      </div> <div class="card mr-4" style="width: 18rem;">
-                        <img src="msi.jpg" class="rounded" alt="Cinque Terre" width="230" height="175">
+                      </div> <div class="mt-4 ml-1 mr-4" style="width: 18rem;">
+                        <img src="msi.jpg" class="card-img-top" alt="Cinque Terre" width="304" height="240">
                         <div class="card-body">
                           <h5 class="card-title">Keyboard MSI</h5>
                           <p class="card-text">Keyboar Gaming MSI  Buat kamu Yang suka Main game</p>
                           <p class="card-text">300.000.00</p>
-                          <a href="#" class="btn btn-primary">Add To Cart</a>
+                          <a href="#" class="btn btn-primary" id="cartButton4">Add To Cart</a>
                         </div>
                       </div>
         </div>
     </div>
+    <script>
+const keywordInput = document.getElementById('keyword');
+const searchItemButton = document.getElementById('searchItem');
+const cartButton = document.getElementById('cart');
+const cartItemCountElement = document.getElementById('cartItemCount');
+
+const listBarangElement = document.getElementById('listBarang');
+let cartItems = [];
+
+searchItemButton.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  const keyword = keywordInput.value.trim();
+
+  if (keyword) {
+    const filteredItems = [];
+
+    for (const item of listBarangElement.children) {
+      const cardTitleElement = item.querySelector('.card-title');
+      const itemTitle = cardTitleElement.textContent.trim();
+
+      if (itemTitle.toLowerCase().includes(keyword.toLowerCase())) {
+        filteredItems.push(item);
+      }
+    }
+
+    for (const item of listBarangElement.children) {
+      item.style.display = 'none';
+    }
+
+    for (const item of filteredItems) {
+      item.style.display = 'block';
+    }
+  } else {
+    for (const item of listBarangElement.children) {
+      item.style.display = 'block';
+    }
+  }
+});
+
+  document.getElementById("cartButton1").addEventListener("click", function() {
+    addToCart("Mouse Genius", 50000);
+});
+
+document.getElementById("cartButton2").addEventListener("click", function() {
+    addToCart("Mouse Jerry", 30000);
+});
+
+document.getElementById("cartButton3").addEventListener("click", function() {
+    addToCart("Keyboard Logitek", 60000);
+});
+
+document.getElementById("cartButton4").addEventListener("click", function() {
+    addToCart("Keyboard MSI", 300000);
+});
+
+let cartItemCount = 0;
+
+function addToCart(itemName, itemPrice) {
+    cartItemCount++;
+    updateCartItemCount(cartItemCount);
+    showNotification(itemName);
+}
+
+function updateCartItemCount(count) {
+    document.getElementById("cartItemCount").textContent = `(${count})`;
+}
+function updateCartItemCount(count) {
+  if (count > 9) {
+  document.getElementById("cartItemCount").textContent = "(9+)";
+  } else {
+  document.getElementById("cartItemCount").textContent = `(${count})`;
+  }
+}
+
+function addToCart(itemName, itemPrice) {
+    cartItemCount++;
+    updateCartItemCount(cartItemCount);
+    showNotification(itemName);
+}
+
+  </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
